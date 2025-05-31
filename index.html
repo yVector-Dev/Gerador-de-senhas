@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gerador de Senhas Seguras - Crie senhas fortes e proteja seus dados online.">
+    <meta name="keywords" content="senha segura, gerador de senhas, segurança online, proteção de dados">
+    <meta name="author" content="Seu Nome">
+    <title>Gerador de Senhas Seguras</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Header -->
+    <header class="bg-blue-600 text-white py-4 shadow">
+        <div class="container mx-auto text-center">
+            <h1 class="text-3xl font-bold">Gerador de Senhas Seguras 🔐</h1>
+            <p class="text-sm">Crie senhas fortes e proteja seus dados!</p>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main class="container mx-auto mt-8 px-4">
+
+        <div class="bg-white p-6 rounded-lg shadow-lg max-w-lg mx-auto">
+            <h2 class="text-2xl font-semibold mb-4 text-center">Personalize sua senha:</h2>
+
+            <div class="mb-4">
+                <label class="block mb-1 font-medium">Comprimento da senha:</label>
+                <input id="length" type="number" min="6" max="64" value="16"
+                    class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <label class="flex items-center">
+                    <input id="uppercase" type="checkbox" class="mr-2" checked>
+                    Letras Maiúsculas
+                </label>
+                <label class="flex items-center">
+                    <input id="lowercase" type="checkbox" class="mr-2" checked>
+                    Letras Minúsculas
+                </label>
+                <label class="flex items-center">
+                    <input id="numbers" type="checkbox" class="mr-2" checked>
+                    Números
+                </label>
+                <label class="flex items-center">
+                    <input id="symbols" type="checkbox" class="mr-2">
+                    Caracteres Especiais
+                </label>
+            </div>
+
+            <button onclick="generatePassword()"
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg mb-4">
+                Gerar Senha
+            </button>
+
+            <div class="flex items-center justify-between border rounded px-3 py-2 bg-gray-50">
+                <span id="result" class="truncate select-all">Sua senha aparecerá aqui...</span>
+                <button onclick="copyPassword()" class="ml-2 text-blue-600 hover:text-blue-800">
+                    Copiar
+                </button>
+            </div>
+        </div>
+
+
+        <!-- ADS -->
+        <div class="max-w-lg mx-auto mt-4">
+            <!-- Substitua pelo seu código do Google AdSense -->
+            <div class="bg-white p-4 rounded shadow text-center">
+                <p class="text-sm text-gray-600">🔸 Espaço reservado para anúncio</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-blue-600 text-white mt-12 py-4">
+        <div class="container mx-auto text-center text-sm">
+            © 2025 Gerador de Senhas Seguras | Feito por Victor Hugo
+        </div>
+    </footer>
+
+    <!-- Script -->
+    <script>
+        function generatePassword() {
+            const length = document.getElementById('length').value;
+            const hasUpper = document.getElementById('uppercase').checked;
+            const hasLower = document.getElementById('lowercase').checked;
+            const hasNumbers = document.getElementById('numbers').checked;
+            const hasSymbols = document.getElementById('symbols').checked;
+
+            const upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const lower = 'abcdefghijklmnopqrstuvwxyz';
+            const numbers = '0123456789';
+            const symbols = '!@#$%^&*()_+=-{}[]|:;<>?,./';
+
+            let characters = '';
+            if (hasUpper) characters += upper;
+            if (hasLower) characters += lower;
+            if (hasNumbers) characters += numbers;
+            if (hasSymbols) characters += symbols;
+
+            if (characters === '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Selecione pelo menos uma opção de caractere!'
+                });
+                return;
+            }
+
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                const index = Math.floor(Math.random() * characters.length);
+                password += characters[index];
+            }
+
+            document.getElementById('result').innerText = password;
+        }
+
+        function copyPassword() {
+            const password = document.getElementById('result').innerText;
+            if (password === '' || password === 'Sua senha aparecerá aqui...') {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Nada para copiar',
+                    text: 'Gere uma senha primeiro!'
+                });
+                return;
+            }
+
+            navigator.clipboard.writeText(password);
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Senha copiada!',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
+    </script>
+</body>
+</html>
