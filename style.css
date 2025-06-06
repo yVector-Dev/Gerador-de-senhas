@@ -1,0 +1,23 @@
+nav.aces-blog{
+  position: absolute;
+  top: 20px;       /* distância do topo */
+  right: 20px;     /* para canto direito (use `left: 20px` para canto esquerdo) */
+  
+  background-color: black;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  cursor: pointer;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+nav.aces-blog:hover {
+    background: #121212;
+    color: #ffd700;
+}
